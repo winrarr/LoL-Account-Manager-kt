@@ -2,16 +2,15 @@ plugins {
     id 'org.jetbrains.kotlin.jvm' version "1.4.21"
     id 'application'
     id 'org.jetbrains.kotlin.plugin.serialization' version '1.4.21'
+    id 'com.github.johnrengelman.shadow' version '6.1.0'
 }
-group = 'com.test'
-version = '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
 }
 
 application {
-    mainClassName = "com.example.MainKt"
+    mainClassName = "MainKt"
 }
 
 dependencies {
@@ -27,4 +26,13 @@ compileKotlin {
 }
 compileTestKotlin {
     kotlinOptions.jvmTarget = "1.8"
+}
+
+tasks.jar {
+    manifest {
+        attributes["Main-Class"] = "MainKt"
+    }
+    configurations["compileClasspath"].forEach {
+            from(zipTree(it.absoluteFile))
+    }
 }
