@@ -1,9 +1,4 @@
-import data.Data
-import data.DataHandler
-import data.api.APIRank
 import javafx.stage.Stage
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.json.Json
 import tornadofx.App
 import tornadofx.UIComponent
 import tornadofx.importStylesheet

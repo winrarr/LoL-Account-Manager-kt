@@ -1,22 +1,15 @@
-import com.sun.javafx.collections.ObservableListWrapper
 import data.DataHandler
 import data.Encryption
 import data.api.Account
 import javafx.animation.KeyFrame
 import javafx.animation.Timeline
-import javafx.beans.binding.ListBinding
-import javafx.beans.property.ListProperty
-import javafx.beans.value.ObservableListValue
-import javafx.beans.value.ObservableValue
-import javafx.collections.FXCollections
-import javafx.collections.ObservableList
-import javafx.fxml.FXML
 import javafx.scene.control.*
 import javafx.scene.input.Clipboard
 import javafx.scene.input.ClipboardContent
 import javafx.scene.layout.VBox
 import javafx.util.Duration
-import tornadofx.*
+import tornadofx.View
+import tornadofx.selectedItem
 import kotlin.math.roundToInt
 
 

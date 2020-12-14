@@ -1,13 +1,10 @@
 import data.DataHandler
-import data.api.Account
-import javafx.fxml.FXML
 import javafx.scene.control.Alert
 import javafx.scene.control.ComboBox
-import javafx.scene.control.ListView
 import javafx.scene.control.TextField
-import javafx.scene.layout.BorderPane
 import javafx.scene.layout.VBox
-import tornadofx.*
+import tornadofx.View
+import tornadofx.alert
 
 class AddAccountWindow : View("My View") {
     override val root: VBox by fxml()

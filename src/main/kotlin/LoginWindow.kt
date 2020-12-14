@@ -1,14 +1,11 @@
 import data.DataHandler
 import data.Encryption
-import javafx.fxml.FXML
 import javafx.scene.control.Alert
 import javafx.scene.control.PasswordField
-import javafx.scene.layout.BorderPane
 import javafx.scene.layout.VBox
-import javafx.stage.Stage
-import tornadofx.*
+import tornadofx.View
+import tornadofx.alert
 import java.io.File
-import java.security.MessageDigest
 
 class LoginWindow : View() {
     override val root: VBox by fxml()
