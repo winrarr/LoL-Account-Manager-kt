@@ -9,7 +9,7 @@ object RiotAPI {
     private const val apiKey = "?api_key=RGAPI-6cb7df72-3d8f-4285-917e-3c14507306f2"
 
     fun getAccountFromName(server: String, name: String): APIAccount {
-        val url = "https://$server.api.riotgames.com/lol/summoner/v4/summoners/by-name/${URLEncoder.encode(name, "US-ASCII")}$apiKey"
+        val url = "https://$server.api.riotgames.com/lol/summoner/v4/summoners/by-name/${name.replace(" ", "%20")}$apiKey"
         val accountJson = downloadJson(url)
         return Json.decodeFromString(accountJson)
     }

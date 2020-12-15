@@ -33,6 +33,8 @@ object DataHandler {
         } catch (e: Exception) {
             Data(null, null, mutableMapOf(), mutableListOf())
         }
+
+
     }
 
     fun getAccount(player: String, username: String, password: String, server: String, name: String): Account {

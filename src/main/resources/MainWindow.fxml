@@ -1,83 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="512.0"
-      prefWidth="297.0" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="512.0" prefWidth="300.0" spacing="10.0" styleClass="vbox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <padding>
-        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+        <Insets bottom="10.0" left="10.0" right="10.0" />
     </padding>
     <GridPane alignment="CENTER_LEFT" prefHeight="106.0" prefWidth="302.0" VBox.vgrow="NEVER">
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="50.0" prefWidth="50.0"/>
-            <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="210.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="50.0" prefWidth="50.0" />
+            <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="210.0" />
         </columnConstraints>
         <rowConstraints>
-            <RowConstraints minHeight="50.0" prefHeight="50.0" valignment="CENTER" vgrow="SOMETIMES"/>
-            <RowConstraints minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES"/>
-            <RowConstraints minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="50.0" prefHeight="50.0" valignment="CENTER" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
         </rowConstraints>
         <Label prefHeight="44.0" prefWidth="40.0" text="Search:">
             <opaqueInsets>
-                <Insets/>
+                <Insets />
             </opaqueInsets>
         </Label>
-        <TextField fx:id="searchTxt" prefHeight="25.0" prefWidth="257.0" GridPane.columnIndex="1"
-                   GridPane.hgrow="ALWAYS"/>
-        <Label prefHeight="44.0" prefWidth="42.0" text="Player:" GridPane.rowIndex="1"/>
-        <Label prefHeight="45.0" prefWidth="46.0" text="Server:" GridPane.rowIndex="2"/>
-        <ComboBox fx:id="playerCmb" maxWidth="1.7976931348623157E308" onAction="#updateServerCmb" prefHeight="25.0"
-                  prefWidth="374.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1"/>
-        <HBox alignment="CENTER_RIGHT" prefHeight="41.0" prefWidth="478.0" spacing="10.0" GridPane.columnIndex="1"
-              GridPane.rowIndex="2">
-            <ComboBox fx:id="serverCmb" maxWidth="1.7976931348623157E308" onAction="#updateListView"
-                      prefHeight="25.0" prefWidth="80.0" HBox.hgrow="ALWAYS"/>
-            <CheckBox fx:id="showPassChk" minWidth="104.0" mnemonicParsing="false" onAction="#showPassword"
-                      text="Show Password"/>
+        <TextField fx:id="searchTxt" onKeyTyped="#search" prefHeight="25.0" prefWidth="257.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" />
+        <Label prefHeight="44.0" prefWidth="42.0" text="Player:" GridPane.rowIndex="1" />
+        <Label prefHeight="45.0" prefWidth="46.0" text="Server:" GridPane.rowIndex="2" />
+        <ComboBox fx:id="playerCmb" maxWidth="1.7976931348623157E308" onAction="#playerCmbChanged" prefHeight="25.0" prefWidth="374.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
+        <HBox alignment="CENTER_RIGHT" prefHeight="41.0" prefWidth="478.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <ComboBox fx:id="serverCmb" maxWidth="1.7976931348623157E308" onAction="#serverCmbChanged" prefHeight="25.0" prefWidth="80.0" HBox.hgrow="ALWAYS" />
+            <CheckBox fx:id="showPassChk" minWidth="104.0" mnemonicParsing="false" onAction="#showPassword" text="Show Password" />
         </HBox>
     </GridPane>
-    <ListView fx:id="accountsLst" onMouseClicked="#accountSelected" prefHeight="82.0" prefWidth="302.0"
-              VBox.vgrow="ALWAYS"/>
-    <Button fx:id="updateBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
-            onAction="#updateSelectedAccount" text="Update Account"/>
+    <ListView fx:id="accountsLst" onMouseClicked="#accountSelected" prefHeight="82.0" prefWidth="302.0" VBox.vgrow="ALWAYS" />
+    <Button fx:id="updateBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#updateSelectedAccount" text="Update Account" />
     <HBox alignment="CENTER_LEFT" prefHeight="33.0" prefWidth="302.0" spacing="10.0" VBox.vgrow="NEVER">
-        <Button fx:id="addAccountBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
-                onAction="#addAccount" text="Add Account" HBox.hgrow="ALWAYS"/>
-        <Button fx:id="removeAccountBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
-                onAction="#removeSelectedAccount" text="Remove Account" HBox.hgrow="ALWAYS"/>
+        <Button fx:id="addAccountBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addAccount" prefHeight="25.0" prefWidth="135.0" text="Add Account" HBox.hgrow="ALWAYS" />
+        <Button fx:id="removeAccountBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#removeSelectedAccount" prefWidth="135.0" text="Remove Account" HBox.hgrow="ALWAYS" />
     </HBox>
     <GridPane alignment="CENTER_LEFT" hgap="10.0" VBox.vgrow="NEVER">
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="76.0" minWidth="76.0" prefWidth="76.0"/>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="76.0" minWidth="76.0" prefWidth="76.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
         </columnConstraints>
         <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
-        <Button fx:id="usernameBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
-                onAction="#copyUsername" text="Username:"/>
-        <Button fx:id="passwordBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
-                onAction="#copyPassword" text="Password:" GridPane.rowIndex="1"/>
-        <TextField fx:id="usernameTxt" GridPane.columnIndex="1"/>
-        <PasswordField fx:id="passwordPsw" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-        <TextField fx:id="passwordTxt" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        <Button fx:id="usernameBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#copyUsername" text="Username:" />
+        <Button fx:id="passwordBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#copyPassword" text="Password:" GridPane.rowIndex="1" />
+        <TextField fx:id="usernameTxt" GridPane.columnIndex="1" />
+        <PasswordField fx:id="passwordPsw" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <TextField fx:id="passwordTxt" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
     </GridPane>
     <GridPane>
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="55.0" minWidth="55.0" prefWidth="55.0"/>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="55.0" minWidth="55.0" prefWidth="55.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
         </columnConstraints>
         <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
-        <Label text="Rank:"/>
-        <Label text="Winrate:" GridPane.rowIndex="1"/>
-        <Label fx:id="rankLbl" GridPane.columnIndex="1"/>
-        <Label fx:id="winrateLbl" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        <Label text="Rank:" />
+        <Label text="Winrate:" GridPane.rowIndex="1" />
+        <Label fx:id="rankLbl" GridPane.columnIndex="1" />
+        <Label fx:id="winrateLbl" GridPane.columnIndex="1" GridPane.rowIndex="1" />
     </GridPane>
-    <Button fx:id="updateAllBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#updateAllAccounts"
-            text="Update All Accounts"/>
+    <Button fx:id="updateAllBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#updateAllAccounts" text="Update All Accounts" />
 </VBox>

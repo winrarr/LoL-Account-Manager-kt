@@ -1,0 +1,17 @@
+.vbox {
+    -fx-background-color: #1f2225;
+}
+
+.button {
+    -fx-background-color: #434343;
+    -fx-text-fill: #a6a6a6;
+}
+
+.text-field, .combo-box, .list-view {
+    -fx-background-color: #111314;
+    -fx-text-fill: #a6a6a6;
+}
+
+.label {
+    -fx-text-fill: #a6a6a6;
+}

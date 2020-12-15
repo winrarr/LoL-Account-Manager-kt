@@ -5,7 +5,6 @@ import java.security.SecureRandom
 import javax.crypto.Cipher
 import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.SecretKeySpec
-import javax.xml.bind.DatatypeConverter
 
 object Encryption {
     fun hash(string: String): String {
@@ -16,11 +15,11 @@ object Encryption {
     }
 
     fun byteArrayToHexString(array: ByteArray): String {
-        return DatatypeConverter.printHexBinary(array)
+        return array.joinToString(" ")
     }
 
     fun hexStringToByteArray(string: String): ByteArray {
-        return DatatypeConverter.parseHexBinary(string)
+        return string.split(" ").map { it.toByte() }.toByteArray()
     }
 
     fun encrypt(plainText: String, key: ByteArray = DataHandler.key): String {

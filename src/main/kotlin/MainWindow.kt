@@ -16,6 +16,7 @@ import kotlin.math.roundToInt
 class MainWindow : View() {
     override val root: VBox by fxml()
 
+    private val searchTxt: TextField by fxid("searchTxt")
     private val playerCmb: ComboBox<String> by fxid("playerCmb")
     private val serverCmb: ComboBox<String> by fxid("serverCmb")
     private val showPassChk: CheckBox by fxid("showPassChk")
@@ -34,25 +35,58 @@ class MainWindow : View() {
 
     private fun setUp() {
         updatePlayerCmb()
+        playerCmb.selectionModel.select(DataHandler.data.defaultPlayer)
+        serverCmb.selectionModel.select(DataHandler.data.defaultServer)
+//        updateAccountLst()
+    }
+
+    fun search() {
+        accountsLst.items.clear()
+
+        val searchString = searchTxt.text
+
+        val matchedPlayers = DataHandler.getPlayers()
+            .filter { it.take(searchString.length).equals(searchString, ignoreCase = true) }.toMutableList()
+            .let { playerList ->
+                val matchedAccounts =
+                    DataHandler.getAccountList().filter { account ->
+                        account.apiAccount.name.take(searchString.length).equals(searchString, ignoreCase = true)
+                                || account.player.take(searchString.length).equals(searchString, ignoreCase = true)
+                                || account.server.take(searchString.length).equals(searchString, ignoreCase = true)
+                    }
+                accountsLst.items.addAll(elements = matchedAccounts.toSet())
+
+                playerList + matchedAccounts.map { it.player }
+            }
+
+        playerCmb.items.setAll(matchedPlayers.toSet())
     }
 
     fun updatePlayerCmb() {
-        playerCmb.items .clear()
-        playerCmb.items.addAll(DataHandler.getPlayers())
+        playerCmb.items.setAll(DataHandler.getPlayers())
     }
 
-    fun updateServerCmb() {
-        serverCmb.items.clear()
+    private fun updateServerCmb() {
         playerCmb.value?.let {
-            serverCmb.items.addAll(DataHandler.getServers(it))
+            serverCmb.items.setAll(DataHandler.getServers(it))
         }
     }
 
-    fun updateListView() {
+    private fun updateAccountLst() {
         accountsLst.items.clear()
         val player = playerCmb.value ?: return
         val server = serverCmb.value ?: return
         accountsLst.items.addAll(elements = DataHandler.getAccountList(player, server))
+    }
+
+    fun playerCmbChanged() {
+        updateServerCmb()
+        DataHandler.data.defaultPlayer = playerCmb.value
+    }
+
+    fun serverCmbChanged() {
+        updateAccountLst()
+        DataHandler.data.defaultServer = serverCmb.value
     }
 
     fun addAccount() {
@@ -115,7 +149,7 @@ class MainWindow : View() {
     fun updateSelectedAccount() {
         val account = (accountsLst.selectedItem ?: return) as Account
         DataHandler.updateAccount(account)
-        updateListView()
+        serverCmbChanged()
     }
 
     fun removeSelectedAccount() {
@@ -126,6 +160,12 @@ class MainWindow : View() {
 
     fun updateAllAccounts() {
         DataHandler.updateAllAccounts()
-        updateListView()
+        serverCmbChanged()
+    }
+
+    override fun onDock() {
+        currentWindow?.setOnCloseRequest {
+            DataHandler.serialize()
+        }
     }
 }
