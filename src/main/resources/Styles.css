@@ -53,6 +53,10 @@
     -fx-text-fill: -text-color;
 }
 
+.check-box {
+    -fx-text-fill: -text-color;
+}
+
 .check-box .box {
     -fx-background-color: -control-background-color;
     -fx-border-color: -border-color;
