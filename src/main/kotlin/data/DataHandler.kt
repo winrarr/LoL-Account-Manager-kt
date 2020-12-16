@@ -12,19 +12,6 @@ import java.io.File
 object DataHandler {
     var data: Data
     lateinit var key: ByteArray
-    val serverStrings = mapOf(
-        "EUW" to "EUW1",
-        "NA" to "NA1",
-        "EUNE" to "EUN1",
-        "KR" to "KR",
-        "TR" to "TR1",
-        "OCE" to "OC1",
-        "LAN" to "LA1",
-        "LAS" to "LA2",
-        "RU" to "RU",
-        "JP" to "JP1",
-        "BR" to "BR1"
-    )
 
     init {
         data = try {
@@ -37,15 +24,13 @@ object DataHandler {
 
     }
 
-    fun getAccount(player: String, username: String, password: String, server: String, name: String): Account {
+    private fun getAccount(player: String, username: String, password: String, server: String, name: String): Account {
         val apiAccount: APIAccount = RiotAPI.getAccountFromName(server, name)
         val apiRank = RiotAPI.getRankFromId(server, apiAccount.id)
         return Account(player, username, password, server, apiAccount, apiRank)
     }
 
     fun getAccountList(): List<Account> = data.accounts.flatMap { it -> it.value.flatMap { it.value } }
-
-    fun getAccountList(player: String): List<Account> = data.accounts[player]?.flatMap { it.value } ?: emptyList()
 
     fun getAccountList(player: String, server: String): List<Account> = data.accounts[player]?.get(server) ?: emptyList()
 
@@ -67,7 +52,6 @@ object DataHandler {
             val serverAccountsList = playerAccountsMap.getOrPut(server) { mutableListOf() }
             serverAccountsList.add(account)
         } catch (e: Exception) {
-            e.printStackTrace()
             return AccountStatus.FAIL
         }
 

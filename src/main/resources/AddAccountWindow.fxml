@@ -30,5 +30,5 @@
         <TextField fx:id="usernameTxt" GridPane.columnIndex="1" GridPane.rowIndex="1" />
         <TextField fx:id="passwordTxt" GridPane.columnIndex="1" GridPane.rowIndex="2" />
     </GridPane>
-    <Button fx:id="addAccountBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addAccount" text="Add Account" />
+    <Button fx:id="addAccountBtn" defaultButton="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addAccount" text="Add Account" />
 </VBox>

@@ -9,5 +9,5 @@
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
    </padding>
    <PasswordField fx:id="passwordPsw" promptText="Password" />
-   <Button alignment="CENTER" mnemonicParsing="false" onAction="#login" prefHeight="25.0" prefWidth="97.0" text="Login" />
+   <Button alignment="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#login" prefHeight="25.0" prefWidth="97.0" text="Login" />
 </VBox>

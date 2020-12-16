@@ -9,5 +9,5 @@
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
    </padding>
    <TextField fx:id="passwordTxt" promptText="Password" />
-   <Button mnemonicParsing="false" onAction="#setPassword" text="Set Password" />
+   <Button defaultButton="true" mnemonicParsing="false" onAction="#setPassword" text="Set Password" />
 </VBox>

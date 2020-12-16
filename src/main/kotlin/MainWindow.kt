@@ -37,7 +37,12 @@ class MainWindow : View() {
         updatePlayerCmb()
         playerCmb.selectionModel.select(DataHandler.data.defaultPlayer)
         serverCmb.selectionModel.select(DataHandler.data.defaultServer)
-//        updateAccountLst()
+        updateServerCmb()
+        updateAccountLst()
+    }
+
+    fun getSelectedServer(): String? {
+        return serverCmb.selectedItem
     }
 
     fun search() {
@@ -67,8 +72,9 @@ class MainWindow : View() {
     }
 
     private fun updateServerCmb() {
+        serverCmb.items.clear()
         playerCmb.value?.let {
-            serverCmb.items.setAll(DataHandler.getServers(it))
+            serverCmb.items.addAll(DataHandler.getServers(it))
         }
     }
 
@@ -81,12 +87,10 @@ class MainWindow : View() {
 
     fun playerCmbChanged() {
         updateServerCmb()
-        DataHandler.data.defaultPlayer = playerCmb.value
     }
 
     fun serverCmbChanged() {
         updateAccountLst()
-        DataHandler.data.defaultServer = serverCmb.value
     }
 
     fun addAccount() {
@@ -125,7 +129,7 @@ class MainWindow : View() {
     }
 
     fun copyPassword() {
-        copyFromTextfield(passwordTxt)
+        copyFromTextfield(if (passwordTxt.isVisible) passwordTxt else passwordPsw)
         showCopiedOnButton(passwordBtn)
     }
 
@@ -156,6 +160,8 @@ class MainWindow : View() {
         val account = (accountsLst.selectedItem ?: return) as Account
         DataHandler.removeAccount(account)
         updatePlayerCmb()
+        updateServerCmb()
+        updateAccountLst()
     }
 
     fun updateAllAccounts() {
@@ -165,6 +171,8 @@ class MainWindow : View() {
 
     override fun onDock() {
         currentWindow?.setOnCloseRequest {
+            DataHandler.data.defaultPlayer = playerCmb.value
+            DataHandler.data.defaultServer = serverCmb.value
             DataHandler.serialize()
         }
     }

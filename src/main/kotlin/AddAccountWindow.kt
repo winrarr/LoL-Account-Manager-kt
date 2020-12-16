@@ -1,4 +1,5 @@
 import data.DataHandler
+import data.api.RiotAPI
 import javafx.scene.control.Alert
 import javafx.scene.control.ComboBox
 import javafx.scene.control.TextField
@@ -9,6 +10,8 @@ import tornadofx.alert
 class AddAccountWindow : View("My View") {
     override val root: VBox by fxml()
 
+    private val mainWindow = find<MainWindow>()
+
     private val serverCmb: ComboBox<Any> by fxid("serverCmb")
     private val playerTxt: TextField by fxid("playerTxt")
     private val nameTxt: TextField by fxid("nameTxt")
@@ -16,7 +19,8 @@ class AddAccountWindow : View("My View") {
     private val passwordTxt: TextField by fxid("passwordTxt")
 
     init {
-        serverCmb.items.addAll("EUW", "NA", "EUNE", "KR", "TR", "OCE", "LAN", "LAS", "RU", "JP", "BR")
+        serverCmb.items.addAll(elements = RiotAPI.serverStrings.keys)
+        serverCmb.selectionModel.select(mainWindow.getSelectedServer())
     }
 
     fun addAccount() {
@@ -24,13 +28,15 @@ class AddAccountWindow : View("My View") {
             playerTxt.text,
             usernameTxt.text,
             passwordTxt.text,
-            "EUW1",
+            serverCmb.value as String,
             nameTxt.text
         )) {
             AccountStatus.FAIL -> alert(Alert.AlertType.ERROR, "Error", "Something went wrong")
             AccountStatus.ALREADY_ADDED -> alert(Alert.AlertType.INFORMATION, "Account Already Added", "This account is already added")
             AccountStatus.SUCCESS -> {
-                find<MainWindow>().updatePlayerCmb()
+                mainWindow.updatePlayerCmb()
+                usernameTxt.text = ""
+                passwordTxt.text = ""
                 close()
             }
         }
